@@ -1,1 +1,45 @@
-<app-board></app-board>
+<div class="settings" *ngIf="!showBoard">
+  <form class="pure-form pure-form-aligned">
+    <fieldset>
+      <legend>Settings</legend>
+      <div class="pure-control-group">
+        <label for="modeSelection">Mode</label>
+        <select class="form-control"  id="modeSelection"
+                required
+                [(ngModel)]="modeSelection" name="modeSelection">
+          <option value="blackAndWhite">Black and white</option>
+          <option value="color">Color</option>
+        </select>
+      </div>
+
+      <div class="pure-control-group">
+        <label for="aspectRatioSelection">Aspect ratio</label>
+        <select class="form-control"  id="aspectRatioSelection"
+                required
+                [(ngModel)]="aspectRatioSelection" name="aspectRatioSelection">
+          <option value="nine">16:9</option>
+          <option value="ten">16:10</option>
+        </select>
+      </div>
+
+      <div class="pure-control-group">
+        <label for="durationSelection">Timer length</label>
+        <select class="form-control"  id="durationSelection"
+                required
+                [(ngModel)]="durationSelection" name="durationSelection">
+          <option value="10">10 Minutes</option>
+          <option value="15">15 Minutes</option>
+          <option value="20">20 Minutes</option>
+          <option value="25">25 Minutes</option>
+          <option value="30">30 Minutes</option>
+        </select>
+      </div>
+
+      <div class="pure-controls">
+        <button type="submit" class="pure-button pure-button-primary" (click)="startApp($event)">Start</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<app-board *ngIf="showBoard"></app-board>
