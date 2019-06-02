@@ -1,0 +1,11 @@
+:host {
+  flex: 1 0 auto;
+  position: relative;
+}
+
+:host:after {
+  content: "";
+  float: left;
+  display: block;
+  padding-top: 100%;
+}
