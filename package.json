@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-gh": "ng build --prod --base-href \"https://LeonEck.github.io/PixelTime/\" && ngh"
+    "build-gh": "ng build --prod --base-href \"https://LeonEck.github.io/PixelTime/\" && ngh --dir=dist/PixelTime"
   },
   "private": true,
   "dependencies": {
