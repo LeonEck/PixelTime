@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-gh": "ng build --prod --base-href \"https://LeonEck.github.io/PixelTime/\" && ngh"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +20,7 @@
     "@angular/platform-browser": "~8.0.0",
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
+    "angular-cli-ghpages": "^0.5.3",
     "randomcolor": "^0.5.4",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
