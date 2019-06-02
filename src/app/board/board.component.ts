@@ -13,8 +13,8 @@ export class BoardComponent implements OnInit {
   countdownTime: number;
 
   rows: { blocks: { color: string }[] }[] = [];
-  amountOfRows = 27; // 72
-  amountOfBlocks = 1296; // 9216 (128 * 72) https://pacoup.com/2011/06/12/list-of-true-169-resolutions/
+  amountOfRows = this.settingsService.getAmountOfRows();
+  amountOfBlocks = this.settingsService.getAmountOfBlocks();
   amountOfBlocksPerRow = 0;
   blocks: { color: string }[] = [];
 
