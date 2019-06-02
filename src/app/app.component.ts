@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
   countdownTime = 1200000;
 
   rows: { blocks: { color: string }[] }[] = [];
-  // TODO: On startup add a selection with multiple options for the size
   amountOfRows = 27; // 72
   amountOfBlocks = 1296; // 9216 (128 * 72) https://pacoup.com/2011/06/12/list-of-true-169-resolutions/
   amountOfBlocksPerRow = 0;
