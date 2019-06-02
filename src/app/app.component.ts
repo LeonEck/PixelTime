@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {interval} from 'rxjs';
+import {interval, Observable} from 'rxjs';
 import {takeWhile} from 'rxjs/operators';
 
 @Component({
@@ -8,11 +8,12 @@ import {takeWhile} from 'rxjs/operators';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  tick = interval(1000);
+  tick: Observable<number>;
+  countdownTime = 1200000;
 
   rows: { blocks: { color: string }[] }[] = [];
-  amountOfRows = 72; // 72
-  amountOfBlocks = 9216; // 9216 (128 * 72) https://pacoup.com/2011/06/12/list-of-true-169-resolutions/
+  amountOfRows = 27; // 72
+  amountOfBlocks = 1296; // 9216 (128 * 72) https://pacoup.com/2011/06/12/list-of-true-169-resolutions/
   amountOfBlocksPerRow = 0;
   blocks: { color: string }[] = [];
 
@@ -35,16 +36,19 @@ export class AppComponent implements OnInit {
       }
       this.rows.push({blocks});
     }
+
+    this.tick = interval(this.countdownTime / this.amountOfBlocks);
   }
 
   ngOnInit() {
     AppComponent.shuffle(this.blocks);
     this.tick
       .pipe(
-        takeWhile(value => value < this.blocks.length)
+        takeWhile(value => value < this.amountOfBlocks)
       )
       .subscribe((value) => {
-        this.blocks[value].color = 'black';
+        // @ts-ignore
+        this.blocks[value].color = randomColor();
       });
   }
 }
