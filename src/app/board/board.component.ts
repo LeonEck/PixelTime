@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {interval, Observable} from 'rxjs';
-import {takeWhile} from 'rxjs/operators';
+import {finalize, takeWhile} from 'rxjs/operators';
+import {Mode, SettingsService} from '../settings.service';
 
 @Component({
   selector: 'app-board',
@@ -9,7 +10,7 @@ import {takeWhile} from 'rxjs/operators';
 })
 export class BoardComponent implements OnInit {
   tick: Observable<number>;
-  countdownTime = 1200000;
+  countdownTime: number;
 
   rows: { blocks: { color: string }[] }[] = [];
   amountOfRows = 27; // 72
@@ -25,12 +26,13 @@ export class BoardComponent implements OnInit {
     return a;
   }
 
-  constructor() {
+  constructor(private settingsService: SettingsService) {
+    this.countdownTime = this.settingsService.duration;
     this.amountOfBlocksPerRow = this.amountOfBlocks / this.amountOfRows;
     for (let i = 0; i < this.amountOfRows; i++) {
       const blocks = [];
       for (let j = 0; j < this.amountOfBlocksPerRow; j++) {
-        const block = {color: 'black'};
+        const block = {color: this.settingsService.getStartingColor()};
         this.blocks.push(block);
         blocks.push(block);
       }
@@ -43,11 +45,21 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
     this.tick
       .pipe(
-        takeWhile(value => value < this.amountOfBlocks)
+        takeWhile(value => value < this.amountOfBlocks),
+        finalize(() => this.timerFinished())
       )
       .subscribe((value) => {
-        // @ts-ignore
-        this.blocks[value].color = randomColor();
+        this.blocks[value].color = this.settingsService.getNewColor();
       });
+  }
+
+  timerFinished() {
+    if (this.settingsService.mode === Mode.color) {
+      // @ts-ignore
+      const newRandomColor = randomColor();
+      this.blocks.forEach((block) => {
+        block.color = newRandomColor;
+      });
+    }
   }
 }
