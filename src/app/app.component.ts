@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   countdownTime = 1200000;
 
   rows: { blocks: { color: string }[] }[] = [];
+  // TODO: On startup add a selection with multiple options for the size
   amountOfRows = 27; // 72
   amountOfBlocks = 1296; // 9216 (128 * 72) https://pacoup.com/2011/06/12/list-of-true-169-resolutions/
   amountOfBlocksPerRow = 0;
@@ -30,18 +31,17 @@ export class AppComponent implements OnInit {
     for (let i = 0; i < this.amountOfRows; i++) {
       const blocks = [];
       for (let j = 0; j < this.amountOfBlocksPerRow; j++) {
-        const block = {color: 'white'};
+        const block = {color: 'black'};
         this.blocks.push(block);
         blocks.push(block);
       }
       this.rows.push({blocks});
     }
-
+    AppComponent.shuffle(this.blocks);
     this.tick = interval(this.countdownTime / this.amountOfBlocks);
   }
 
   ngOnInit() {
-    AppComponent.shuffle(this.blocks);
     this.tick
       .pipe(
         takeWhile(value => value < this.amountOfBlocks)

@@ -8,7 +8,7 @@ import {Component, HostBinding, Input, OnChanges, SimpleChanges} from '@angular/
 export class BlockComponent implements OnChanges {
 
   @Input() color: string;
-  @HostBinding('style.background-color') backgroundColor = 'white';
+  @HostBinding('style.background-color') backgroundColor = '';
 
   constructor() { }
 
