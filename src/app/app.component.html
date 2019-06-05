@@ -42,4 +42,17 @@
   </form>
 </div>
 
+<div class="experimentalSettings" *ngIf="!showBoard">
+  <div class="arrow-down" (click)="experimentalSettingsVisible = !experimentalSettingsVisible" [ngClass]="{'active': experimentalSettingsVisible}"></div>
+  <form class="pure-form pure-form-stacked" *ngIf="experimentalSettingsVisible">
+    <fieldset>
+      <legend>Experimental features</legend>
+
+      <label for="enableCSSTransitions" class="pure-checkbox">
+        <input id="enableCSSTransitions" type="checkbox" name="enableCSSTransitions" [(ngModel)]="enableCSSTransitions"> Enable CSS transitions (VERY hardware demanding!)
+      </label>
+    </fieldset>
+  </form>
+</div>
+
 <app-board *ngIf="showBoard"></app-board>

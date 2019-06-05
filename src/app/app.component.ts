@@ -8,9 +8,11 @@ import {AspectRatio, Mode, SettingsService} from './settings.service';
 })
 export class AppComponent {
   showBoard = false;
+  experimentalSettingsVisible = false;
   modeSelection = 'blackAndWhite';
   aspectRatioSelection = 'nine';
   durationSelection = '20';
+  enableCSSTransitions = false;
 
   constructor(private settingsService: SettingsService) {
     this.settingsService.mode = Mode.color;
@@ -36,6 +38,8 @@ export class AppComponent {
     }
 
     this.settingsService.duration = +this.durationSelection * 60 * 1000;
+
+    this.settingsService.enableCSSTransition = this.enableCSSTransitions;
 
     this.showBoard = true;
   }

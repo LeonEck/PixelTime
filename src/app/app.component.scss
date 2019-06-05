@@ -7,3 +7,47 @@
   box-shadow: 3px 3px 15px #333;
   padding: 15px;
 }
+
+.experimentalSettings {
+  position: relative;
+  margin: 0 auto;
+  width: 350px;
+  padding: 15px;
+}
+
+.arrow-down {
+  width: 50px;
+  height: 50px;
+  position: relative;
+}
+
+.arrow-down:before, .arrow-down:after {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 5px;
+  background: #eeeeee;
+  position: absolute;
+  top: 20px;
+  transition: transform .5s;
+}
+
+.arrow-down:before {
+  right: 21px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  transform: rotate(45deg);
+}
+
+.arrow-down:after {
+  right: 10px;
+  transform: rotate(-45deg);
+}
+
+.arrow-down.active:before {
+  transform: rotate(-45deg);
+}
+
+.arrow-down.active:after {
+  transform: rotate(45deg);
+}

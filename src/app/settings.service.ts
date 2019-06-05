@@ -18,6 +18,7 @@ export class SettingsService {
   mode: Mode = Mode.blackAndWhite;
   aspectRatio: AspectRatio = AspectRatio.nine;
   duration = 1200000;
+  enableCSSTransition = false;
 
   constructor() { }
 
