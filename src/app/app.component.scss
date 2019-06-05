@@ -21,6 +21,10 @@
   position: relative;
 }
 
+.arrow-down:hover {
+  cursor: pointer;
+}
+
 .arrow-down:before, .arrow-down:after {
   content: "";
   display: block;
