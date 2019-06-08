@@ -1,5 +1,10 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Mode, SettingsService} from '../settings.service';
+import {Block} from '../block/block.component';
+
+interface Row {
+  blocks: Block[];
+}
 
 @Component({
   selector: 'app-board',
@@ -7,15 +12,21 @@ import {Mode, SettingsService} from '../settings.service';
   styleUrls: ['./board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BoardComponent implements OnInit, OnChanges {
+export class BoardComponent {
 
-  @Input() nextBlockToClear: number;
+  @Input()
+  set nextBlockToClear(value: number) {
+    if (value === -1) {
+      this.timerFinished();
+    } else {
+      this.blocks[value].color = this.settingsService.getNewColor();
+    }
+  }
 
-  rows: { blocks: { color: string }[] }[] = [];
+  rows: Row[] = [];
+  blocks: Block[] = [];
   amountOfRows = this.settingsService.getAmountOfRows();
-  amountOfBlocks = this.settingsService.getAmountOfBlocks();
-  amountOfBlocksPerRow = 0;
-  blocks: { color: string }[] = [];
+  amountOfBlocksPerRow = this.settingsService.getAmountOfBlocks() / this.amountOfRows;
 
   private static shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -26,37 +37,23 @@ export class BoardComponent implements OnInit, OnChanges {
   }
 
   constructor(private settingsService: SettingsService) {
-    this.amountOfBlocksPerRow = this.amountOfBlocks / this.amountOfRows;
     for (let i = 0; i < this.amountOfRows; i++) {
-      const blocks = [];
+      const blocksForRow = [];
       for (let j = 0; j < this.amountOfBlocksPerRow; j++) {
-        const block = {color: this.settingsService.getStartingColor()};
+        const block = {
+          color: this.settingsService.getStartingColor()
+        };
         this.blocks.push(block);
-        blocks.push(block);
+        blocksForRow.push(block);
       }
-      this.rows.push({blocks});
+      this.rows.push({
+        blocks: blocksForRow
+      });
     }
     BoardComponent.shuffle(this.blocks);
   }
 
-  ngOnInit() {
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    for (const propName in changes) {
-      if (changes.hasOwnProperty(propName)) {
-        if (propName === 'nextBlockToClear') {
-          if (changes.nextBlockToClear.currentValue === -1) {
-            this.timerFinished();
-          } else {
-            this.blocks[changes.nextBlockToClear.currentValue].color = this.settingsService.getNewColor();
-          }
-        }
-      }
-    }
-  }
-
-  timerFinished() {
+  private timerFinished() {
     if (this.settingsService.mode === Mode.color) {
       // @ts-ignore
       const newRandomColor = randomColor();
