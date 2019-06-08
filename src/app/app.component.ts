@@ -17,7 +17,7 @@ export class AppComponent {
   pixelDensities = Object.values(PixelDensity);
 
   showBoard = false;
-  experimentalSettingsVisible = false;
+  advancedSettingsVisible = false;
   modeSelection = Mode.blackAndWhite;
   aspectRatioSelection = AspectRatio.sixteenByNine;
   durationSelection = Duration.twentyMinutes;
@@ -29,17 +29,17 @@ export class AppComponent {
   amountOfBlocks: number;
 
   constructor(private settingsService: SettingsService) {
-    this.settingsService.mode = Mode.color;
+    this.aspectRatioSelection = this.settingsService.calculateAspectRatio();
   }
 
   startApp(event) {
     event.preventDefault();
     this.settingsService.mode = this.modeSelection;
-    this.settingsService.aspectRatio = this.aspectRatioSelection;
     this.settingsService.duration = SettingsService.minutesToMilliseconds(this.durationSelection);
 
     this.settingsService.enableCSSTransition = this.enableCSSTransitions;
     this.settingsService.pixelDensity = this.pixelDensitySelection;
+    this.settingsService.aspectRatio = this.aspectRatioSelection;
 
     this.amountOfBlocks = this.settingsService.getAmountOfBlocks();
 
@@ -51,6 +51,12 @@ export class AppComponent {
         .then(() => this.startTick());
     } else {
       this.startTick();
+    }
+  }
+
+  clickOnBoard(clickEvent) {
+    if (clickEvent.detail === 5) {
+      window.location.reload();
     }
   }
 

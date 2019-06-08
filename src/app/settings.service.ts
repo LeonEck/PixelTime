@@ -7,7 +7,8 @@ export enum Mode {
 
 export enum AspectRatio {
   sixteenByNine = '16:9',
-  sixteenByTen = '16:10'
+  sixteenByTen = '16:10',
+  fourByThree = '4:3'
 }
 
 export enum Duration {
@@ -53,6 +54,20 @@ const PIXEL_DENSITY_PRESET = {
       blocks: 16000,
     },
   },
+  [AspectRatio.fourByThree]: {
+    [PixelDensity.low]: {
+      rows: 27,
+      blocks: 972,
+    },
+    [PixelDensity.medium]: {
+      rows: 72,
+      blocks: 6912,
+    },
+    [PixelDensity.high]: {
+      rows: 90,
+      blocks: 10800,
+    },
+  },
 };
 
 const BLOCK_STARTING_COLOR = {
@@ -75,7 +90,9 @@ export class SettingsService {
     return +minutes * 60 * 1000;
   }
 
-  constructor() {}
+  constructor() {
+    this.calculateAspectRatio();
+  }
 
   getStartingColor() {
     return BLOCK_STARTING_COLOR[this.mode];
@@ -99,5 +116,28 @@ export class SettingsService {
   // https://docs.google.com/spreadsheets/d/10Ta8nt709B7T2rw074hHcmhqX27MusivgRSJGgZzkP0/edit#gid=114369331
   getAmountOfBlocks() {
     return PIXEL_DENSITY_PRESET[this.aspectRatio][this.pixelDensity].blocks;
+  }
+
+  // https://stackoverflow.com/questions/1186414/whats-the-algorithm-to-calculate-aspect-ratio-i-need-an-output-like-43-169
+  calculateAspectRatio() {
+    const w = screen.width;
+    const h = screen.height;
+    const r = this.gcd(w, h);
+    const calculatedAspectRatio = `${w / r}:${h / r}`;
+    if (calculatedAspectRatio === '16:9' || calculatedAspectRatio === '9:16') {
+      return AspectRatio.sixteenByNine;
+    }
+    if (calculatedAspectRatio === '16:10' || calculatedAspectRatio === '10:16' ||
+        calculatedAspectRatio === '8:5' || calculatedAspectRatio === '5:8') {
+      return AspectRatio.sixteenByTen;
+    }
+    if (calculatedAspectRatio === '4:3' || calculatedAspectRatio === '3:4') {
+      return AspectRatio.fourByThree;
+    }
+    return AspectRatio.sixteenByNine;
+  }
+
+  private gcd(a, b) {
+    return (b === 0) ? a : this.gcd (b, a % b);
   }
 }
