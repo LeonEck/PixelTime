@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, HostBinding, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, Input} from '@angular/core';
 import {SettingsService} from '../settings.service';
 
 @Component({
@@ -7,26 +7,11 @@ import {SettingsService} from '../settings.service';
   styleUrls: ['./block.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlockComponent implements OnChanges, OnInit {
+export class BlockComponent {
 
-  @Input() color: string;
-  @HostBinding('style.background-color') backgroundColor = '';
-  @HostBinding('class.enableTransition') enableTransition = false;
+  @HostBinding('style.background-color') @Input() color = '';
+  @HostBinding('class.enableTransition') enableTransition = this.settingsService.enableCSSTransition;
 
-  constructor(private settingsService: SettingsService) { }
-
-  ngOnInit() {
-    this.enableTransition = this.settingsService.enableCSSTransition;
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    for (const propName in changes) {
-      if (changes.hasOwnProperty(propName)) {
-        if (propName === 'color') {
-          this.backgroundColor = changes.color.currentValue;
-        }
-      }
-    }
-  }
+  constructor(private settingsService: SettingsService) {}
 
 }
