@@ -1,12 +1,13 @@
 :host {
   flex: 1 0 auto;
+
   &.enableTransition {
     transition: 5s;
   }
-}
 
-:host:after {
-  content: "";
-  display: block;
-  padding-top: 100%;
+  &:after {
+    content: "";
+    display: block;
+    padding-top: 100%;
+  }
 }
