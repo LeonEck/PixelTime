@@ -51,8 +51,19 @@
       <label for="enableCSSTransitions" class="pure-checkbox">
         <input id="enableCSSTransitions" type="checkbox" name="enableCSSTransitions" [(ngModel)]="enableCSSTransitions"> Enable CSS transitions (VERY hardware demanding!)
       </label>
+
+      <div class="pure-control-group">
+        <label for="pixelDensitySelection">Pixel density (Higher is more hardware demanding)</label>
+        <select class="form-control"  id="pixelDensitySelection"
+                required
+                [(ngModel)]="pixelDensitySelection" name="pixelDensitySelection">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
     </fieldset>
   </form>
 </div>
 
-<app-board *ngIf="showBoard"></app-board>
+<app-board *ngIf="showBoard" [nextBlockToClear]="nextBlockToClear"></app-board>

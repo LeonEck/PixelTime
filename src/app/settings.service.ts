@@ -6,8 +6,8 @@ export enum Mode {
 }
 
 export enum AspectRatio {
-  nine,
-  ten
+  nine = '16:9',
+  ten = '16:10'
 }
 
 @Injectable({
@@ -19,6 +19,38 @@ export class SettingsService {
   aspectRatio: AspectRatio = AspectRatio.nine;
   duration = 1200000;
   enableCSSTransition = false;
+
+  pixelDensity = 'low';
+  pixelDensityPreset = {
+    '16:9': {
+      low: {
+        rows: 27,
+        blocks: 1296,
+      },
+      medium: {
+        rows: 72,
+        blocks: 9216,
+      },
+      high: {
+        rows: 90,
+        blocks: 14400,
+      },
+    },
+    '16:10': {
+      low: {
+        rows: 30,
+        blocks: 1440,
+      },
+      medium: {
+        rows: 80,
+        blocks: 10240,
+      },
+      high: {
+        rows: 100,
+        blocks: 16000,
+      },
+    },
+  };
 
   constructor() { }
 
@@ -42,22 +74,12 @@ export class SettingsService {
   }
 
   getAmountOfRows() {
-    switch (this.aspectRatio) {
-      case AspectRatio.nine:
-        return 27;
-      case AspectRatio.ten:
-        return 30;
-    }
+    return this.pixelDensityPreset[this.aspectRatio][this.pixelDensity].rows;
   }
 
   // https://pacoup.com/2011/06/12/list-of-true-169-resolutions/
   // https://docs.google.com/spreadsheets/d/10Ta8nt709B7T2rw074hHcmhqX27MusivgRSJGgZzkP0/edit#gid=114369331
   getAmountOfBlocks() {
-    switch (this.aspectRatio) {
-      case AspectRatio.nine:
-        return 1296;
-      case AspectRatio.ten:
-        return 1440;
-    }
+    return this.pixelDensityPreset[this.aspectRatio][this.pixelDensity].blocks;
   }
 }

@@ -1,10 +1,12 @@
 import {Component} from '@angular/core';
 import {AspectRatio, Mode, SettingsService} from './settings.service';
+import {interval, Observable} from 'rxjs';
+import {finalize, takeWhile} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   showBoard = false;
@@ -13,6 +15,12 @@ export class AppComponent {
   aspectRatioSelection = 'nine';
   durationSelection = '20';
   enableCSSTransitions = false;
+  pixelDensitySelection = 'low';
+
+  tick: Observable<number>;
+  countdownTime: number;
+  amountOfBlocks: number;
+  nextBlockToClear = 0;
 
   constructor(private settingsService: SettingsService) {
     this.settingsService.mode = Mode.color;
@@ -41,6 +49,21 @@ export class AppComponent {
 
     this.settingsService.enableCSSTransition = this.enableCSSTransitions;
 
+    this.settingsService.pixelDensity = this.pixelDensitySelection;
+
+    this.amountOfBlocks = this.settingsService.getAmountOfBlocks();
+    this.countdownTime = this.settingsService.duration;
+    this.tick = interval(this.countdownTime / this.amountOfBlocks);
+
     this.showBoard = true;
+
+    this.tick
+      .pipe(
+        takeWhile(value => value < this.amountOfBlocks),
+        finalize(() => this.nextBlockToClear = -1)
+      )
+      .subscribe((value) => {
+        this.nextBlockToClear = value;
+      });
   }
 }
