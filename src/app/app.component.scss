@@ -1,57 +1,61 @@
-.settings {
-  position: relative;
-  margin: 40px auto 0;
-  background: #ecf0f1;
-  width: 350px;
-  border-radius: 5px;
-  box-shadow: 3px 3px 15px #333;
-  padding: 15px;
-}
-
-.experimentalSettings {
+@mixin settingsBlock {
   position: relative;
   margin: 0 auto;
   width: 350px;
   padding: 15px;
 }
 
+.settings {
+  @include settingsBlock;
+  margin-top: 40px;
+  background: #ecf0f1;
+  border-radius: 5px;
+  box-shadow: 3px 3px 15px #333;
+}
+
+.experimentalSettings {
+  @include settingsBlock;
+}
+
 .arrow-down {
   width: 50px;
   height: 50px;
   position: relative;
-}
 
-.arrow-down:hover {
-  cursor: pointer;
-}
+  &:hover {
+    cursor: pointer;
+  }
 
-.arrow-down:before, .arrow-down:after {
-  content: "";
-  display: block;
-  width: 20px;
-  height: 5px;
-  background: #eeeeee;
-  position: absolute;
-  top: 20px;
-  transition: transform .5s;
-}
+  &:before, &:after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 5px;
+    background: #eeeeee;
+    position: absolute;
+    top: 20px;
+    transition: transform .5s;
+  }
 
-.arrow-down:before {
-  right: 21px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  transform: rotate(45deg);
-}
+  &:before {
+    right: 21px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transform: rotate(45deg);
+  }
 
-.arrow-down:after {
-  right: 10px;
-  transform: rotate(-45deg);
-}
+  &:after {
+    right: 10px;
+    transform: rotate(-45deg);
+  }
 
-.arrow-down.active:before {
-  transform: rotate(-45deg);
-}
+  &.active {
+    &:before {
+      transform: rotate(-45deg);
+    }
 
-.arrow-down.active:after {
-  transform: rotate(45deg);
+    &:after {
+      transform: rotate(45deg);
+    }
+  }
 }

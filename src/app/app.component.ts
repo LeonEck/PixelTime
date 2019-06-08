@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AspectRatio, Mode, SettingsService} from './settings.service';
+import {AspectRatio, Duration, Mode, PixelDensity, SettingsService} from './settings.service';
 import {interval, Observable} from 'rxjs';
 import {finalize, takeWhile} from 'rxjs/operators';
 
@@ -9,17 +9,20 @@ import {finalize, takeWhile} from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  modes = Object.values(Mode);
+  aspectRatios = Object.values(AspectRatio);
+  durations = Object.values(Duration);
+  pixelDensities = Object.values(PixelDensity);
+
   showBoard = false;
   experimentalSettingsVisible = false;
-  modeSelection = 'blackAndWhite';
-  aspectRatioSelection = 'nine';
-  durationSelection = '20';
+  modeSelection = Mode.blackAndWhite;
+  aspectRatioSelection = AspectRatio.sixteenByNine;
+  durationSelection = Duration.twentyMinutes;
   enableCSSTransitions = false;
-  pixelDensitySelection = 'low';
+  pixelDensitySelection = PixelDensity.low;
 
   tick: Observable<number>;
-  countdownTime: number;
-  amountOfBlocks: number;
   nextBlockToClear = 0;
 
   constructor(private settingsService: SettingsService) {
@@ -28,38 +31,21 @@ export class AppComponent {
 
   startApp(event) {
     event.preventDefault();
-    switch (this.modeSelection) {
-      case 'blackAndWhite':
-        this.settingsService.mode = Mode.blackAndWhite;
-        break;
-      case 'color':
-        this.settingsService.mode = Mode.color;
-        break;
-    }
-    switch (this.aspectRatioSelection) {
-      case 'nine':
-        this.settingsService.aspectRatio = AspectRatio.nine;
-        break;
-      case 'ten':
-        this.settingsService.aspectRatio = AspectRatio.ten;
-        break;
-    }
-
-    this.settingsService.duration = +this.durationSelection * 60 * 1000;
+    this.settingsService.mode = this.modeSelection;
+    this.settingsService.aspectRatio = this.aspectRatioSelection;
+    this.settingsService.duration = SettingsService.minutesToMilliseconds(this.durationSelection);
 
     this.settingsService.enableCSSTransition = this.enableCSSTransitions;
-
     this.settingsService.pixelDensity = this.pixelDensitySelection;
 
-    this.amountOfBlocks = this.settingsService.getAmountOfBlocks();
-    this.countdownTime = this.settingsService.duration;
-    this.tick = interval(this.countdownTime / this.amountOfBlocks);
+    const amountOfBlocks = this.settingsService.getAmountOfBlocks();
+    this.tick = interval(this.settingsService.duration / amountOfBlocks);
 
     this.showBoard = true;
 
     this.tick
       .pipe(
-        takeWhile(value => value < this.amountOfBlocks),
+        takeWhile(value => value < amountOfBlocks),
         finalize(() => this.nextBlockToClear = -1)
       )
       .subscribe((value) => {

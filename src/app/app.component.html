@@ -7,8 +7,7 @@
         <select class="form-control"  id="modeSelection"
                 required
                 [(ngModel)]="modeSelection" name="modeSelection">
-          <option value="blackAndWhite">Black and white</option>
-          <option value="color">Color</option>
+          <option *ngFor="let mode of modes" [value]="mode">{{mode}}</option>
         </select>
       </div>
 
@@ -17,8 +16,7 @@
         <select class="form-control"  id="aspectRatioSelection"
                 required
                 [(ngModel)]="aspectRatioSelection" name="aspectRatioSelection">
-          <option value="nine">16:9</option>
-          <option value="ten">16:10</option>
+          <option *ngFor="let aspectRatio of aspectRatios" [value]="aspectRatio">{{aspectRatio}}</option>
         </select>
       </div>
 
@@ -27,11 +25,7 @@
         <select class="form-control"  id="durationSelection"
                 required
                 [(ngModel)]="durationSelection" name="durationSelection">
-          <option value="10">10 Minutes</option>
-          <option value="15">15 Minutes</option>
-          <option value="20">20 Minutes</option>
-          <option value="25">25 Minutes</option>
-          <option value="30">30 Minutes</option>
+          <option *ngFor="let duration of durations" [value]="duration">{{duration}} Minutes</option>
         </select>
       </div>
 
@@ -57,9 +51,7 @@
         <select class="form-control"  id="pixelDensitySelection"
                 required
                 [(ngModel)]="pixelDensitySelection" name="pixelDensitySelection">
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
+          <option *ngFor="let pixelDensity of pixelDensities" [value]="pixelDensity">{{pixelDensity}}</option>
         </select>
       </div>
     </fieldset>
