@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {AspectRatio, Duration, Mode, PixelDensity, SettingsService} from './settings.service';
 import {interval, Observable} from 'rxjs';
 import {finalize, takeWhile} from 'rxjs/operators';
+import * as screenfull from 'screenfull';
+import {Screenfull} from 'screenfull';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +26,7 @@ export class AppComponent {
 
   tick: Observable<number>;
   nextBlockToClear = 0;
+  amountOfBlocks: number;
 
   constructor(private settingsService: SettingsService) {
     this.settingsService.mode = Mode.color;
@@ -38,14 +41,24 @@ export class AppComponent {
     this.settingsService.enableCSSTransition = this.enableCSSTransitions;
     this.settingsService.pixelDensity = this.pixelDensitySelection;
 
-    const amountOfBlocks = this.settingsService.getAmountOfBlocks();
-    this.tick = interval(this.settingsService.duration / amountOfBlocks);
+    this.amountOfBlocks = this.settingsService.getAmountOfBlocks();
 
     this.showBoard = true;
 
+    const sf = (screenfull as Screenfull);
+    if (sf.enabled) {
+      sf.request()
+        .then(() => this.startTick());
+    } else {
+      this.startTick();
+    }
+  }
+
+  private startTick() {
+    this.tick = interval(this.settingsService.duration / this.amountOfBlocks);
     this.tick
       .pipe(
-        takeWhile(value => value < amountOfBlocks),
+        takeWhile(value => value < this.amountOfBlocks),
         finalize(() => this.nextBlockToClear = -1)
       )
       .subscribe((value) => {
