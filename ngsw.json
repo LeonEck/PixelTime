@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1560014814838,
+  "timestamp": 1560091931340,
   "index": "https://LeonEck.github.io/PixelTime/index.html",
   "assetGroups": [
     {
@@ -10,8 +10,8 @@
       "urls": [
         "https://LeonEck.github.io/PixelTime/favicon.ico",
         "https://LeonEck.github.io/PixelTime/index.html",
-        "https://LeonEck.github.io/PixelTime/main-es2015.4deae86b3df87abf7463.js",
-        "https://LeonEck.github.io/PixelTime/main-es5.be7e2700d43e740a7e7f.js",
+        "https://LeonEck.github.io/PixelTime/main-es2015.d43b9cd977f9cba18147.js",
+        "https://LeonEck.github.io/PixelTime/main-es5.fd498a03fb523f9cc0fc.js",
         "https://LeonEck.github.io/PixelTime/polyfills-es2015.e954256595c973372414.js",
         "https://LeonEck.github.io/PixelTime/polyfills-es5.943113ac054b16d954ae.js",
         "https://LeonEck.github.io/PixelTime/runtime-es2015.858f8dd898b75fe86926.js",
@@ -49,9 +49,9 @@
     "https://LeonEck.github.io/PixelTime/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "https://LeonEck.github.io/PixelTime/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "https://LeonEck.github.io/PixelTime/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "https://LeonEck.github.io/PixelTime/index.html": "aa4f174e9e9bc312c34a371dcf310753c204c01a",
-    "https://LeonEck.github.io/PixelTime/main-es2015.4deae86b3df87abf7463.js": "5f4f4ab1097ff2fc76b7f041419a0c3f310352c3",
-    "https://LeonEck.github.io/PixelTime/main-es5.be7e2700d43e740a7e7f.js": "6c13bd162bf8f7efea373d3dd74bda94c2c8e87b",
+    "https://LeonEck.github.io/PixelTime/index.html": "936d4cec39eb30b28a1dbb95c3db417f5c8b9347",
+    "https://LeonEck.github.io/PixelTime/main-es2015.d43b9cd977f9cba18147.js": "5b537993f67c79d234645d4fb34885bec14b5c6c",
+    "https://LeonEck.github.io/PixelTime/main-es5.fd498a03fb523f9cc0fc.js": "3c7eed35edb6de973db73541534b91e66f26df0e",
     "https://LeonEck.github.io/PixelTime/polyfills-es2015.e954256595c973372414.js": "ae2d1da695b0816436f21ff43f857a42b11a4e17",
     "https://LeonEck.github.io/PixelTime/polyfills-es5.943113ac054b16d954ae.js": "042d7744ef82a64c73310f1db253736731a03950",
     "https://LeonEck.github.io/PixelTime/runtime-es2015.858f8dd898b75fe86926.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
