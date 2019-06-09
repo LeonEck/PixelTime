@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {AspectRatio, Duration, Mode, PixelDensity, SettingsService} from './settings.service';
 import {interval, Observable} from 'rxjs';
 import {finalize, takeWhile} from 'rxjs/operators';
@@ -28,7 +28,7 @@ export class AppComponent {
   nextBlockToClear = 0;
   amountOfBlocks: number;
 
-  constructor(private settingsService: SettingsService) {
+  constructor(private settingsService: SettingsService, private changeDetectorRef: ChangeDetectorRef) {
     this.aspectRatioSelection = this.settingsService.calculateAspectRatio();
   }
 
@@ -61,14 +61,19 @@ export class AppComponent {
   }
 
   private startTick() {
+    this.changeDetectorRef.detach();
     this.tick = interval(this.settingsService.duration / this.amountOfBlocks);
     this.tick
       .pipe(
         takeWhile(value => value < this.amountOfBlocks),
-        finalize(() => this.nextBlockToClear = -1)
+        finalize(() => {
+          this.nextBlockToClear = -1;
+          this.changeDetectorRef.detectChanges();
+        })
       )
       .subscribe((value) => {
         this.nextBlockToClear = value;
+        this.changeDetectorRef.detectChanges();
       });
   }
 }
