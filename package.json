@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~11.1.2",
     "@angular/router": "~11.1.2",
     "@angular/service-worker": "~11.1.2",
-    "angular-cli-ghpages": "^0.5.3",
+    "angular-cli-ghpages": "^0.6.2",
     "randomcolor": "^0.5.4",
     "rxjs": "~6.6.3",
     "screenfull": "^4.2.0",
