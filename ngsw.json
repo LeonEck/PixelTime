@@ -1,23 +1,27 @@
 {
   "configVersion": 1,
-  "timestamp": 1560091931340,
+  "timestamp": 1612698983549,
   "index": "https://LeonEck.github.io/PixelTime/index.html",
   "assetGroups": [
     {
       "name": "app",
       "installMode": "prefetch",
       "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
       "urls": [
         "https://LeonEck.github.io/PixelTime/favicon.ico",
         "https://LeonEck.github.io/PixelTime/index.html",
-        "https://LeonEck.github.io/PixelTime/main-es2015.d43b9cd977f9cba18147.js",
-        "https://LeonEck.github.io/PixelTime/main-es5.fd498a03fb523f9cc0fc.js",
-        "https://LeonEck.github.io/PixelTime/polyfills-es2015.e954256595c973372414.js",
-        "https://LeonEck.github.io/PixelTime/polyfills-es5.943113ac054b16d954ae.js",
-        "https://LeonEck.github.io/PixelTime/runtime-es2015.858f8dd898b75fe86926.js",
-        "https://LeonEck.github.io/PixelTime/runtime-es5.741402d1d47331ce975c.js",
-        "https://LeonEck.github.io/PixelTime/scripts.fecb45f64d254965b154.js",
-        "https://LeonEck.github.io/PixelTime/styles.0f3d612b7193842f7a50.css"
+        "https://LeonEck.github.io/PixelTime/main-es2015.8afb17ff96ea30985bf1.js",
+        "https://LeonEck.github.io/PixelTime/main-es5.8afb17ff96ea30985bf1.js",
+        "https://LeonEck.github.io/PixelTime/manifest.webmanifest",
+        "https://LeonEck.github.io/PixelTime/polyfills-es2015.aca7685e5e326825927f.js",
+        "https://LeonEck.github.io/PixelTime/polyfills-es5.ebe71d23f991549800ed.js",
+        "https://LeonEck.github.io/PixelTime/runtime-es2015.a4dadbc03350107420a4.js",
+        "https://LeonEck.github.io/PixelTime/runtime-es5.a4dadbc03350107420a4.js",
+        "https://LeonEck.github.io/PixelTime/scripts.be5be92572dcb59a942c.js",
+        "https://LeonEck.github.io/PixelTime/styles.2820c3a5fb2cc622b7a1.css"
       ],
       "patterns": []
     },
@@ -25,6 +29,9 @@
       "name": "assets",
       "installMode": "lazy",
       "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
       "urls": [
         "https://LeonEck.github.io/PixelTime/assets/icons/icon-128x128.png",
         "https://LeonEck.github.io/PixelTime/assets/icons/icon-144x144.png",
@@ -49,15 +56,16 @@
     "https://LeonEck.github.io/PixelTime/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "https://LeonEck.github.io/PixelTime/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "https://LeonEck.github.io/PixelTime/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "https://LeonEck.github.io/PixelTime/index.html": "936d4cec39eb30b28a1dbb95c3db417f5c8b9347",
-    "https://LeonEck.github.io/PixelTime/main-es2015.d43b9cd977f9cba18147.js": "5b537993f67c79d234645d4fb34885bec14b5c6c",
-    "https://LeonEck.github.io/PixelTime/main-es5.fd498a03fb523f9cc0fc.js": "3c7eed35edb6de973db73541534b91e66f26df0e",
-    "https://LeonEck.github.io/PixelTime/polyfills-es2015.e954256595c973372414.js": "ae2d1da695b0816436f21ff43f857a42b11a4e17",
-    "https://LeonEck.github.io/PixelTime/polyfills-es5.943113ac054b16d954ae.js": "042d7744ef82a64c73310f1db253736731a03950",
-    "https://LeonEck.github.io/PixelTime/runtime-es2015.858f8dd898b75fe86926.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
-    "https://LeonEck.github.io/PixelTime/runtime-es5.741402d1d47331ce975c.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
-    "https://LeonEck.github.io/PixelTime/scripts.fecb45f64d254965b154.js": "8ec0a51bd7da1f057139e030841065ff42279215",
-    "https://LeonEck.github.io/PixelTime/styles.0f3d612b7193842f7a50.css": "e77cc1b904d054a9fc47f7d229df5f95f31328a9"
+    "https://LeonEck.github.io/PixelTime/index.html": "a5785c0c396958f60a4f82cf9f4906410c06f611",
+    "https://LeonEck.github.io/PixelTime/main-es2015.8afb17ff96ea30985bf1.js": "4a522fe1655960b31a6b3d775ab521e5b603298f",
+    "https://LeonEck.github.io/PixelTime/main-es5.8afb17ff96ea30985bf1.js": "e3667e0ea3d265e83de2dbe66f2b80a67d902758",
+    "https://LeonEck.github.io/PixelTime/manifest.webmanifest": "b47810616b12accac2038688fec0d731298e60c7",
+    "https://LeonEck.github.io/PixelTime/polyfills-es2015.aca7685e5e326825927f.js": "e0beba5d1ab83a602698e7bd630f7552b06cb1e1",
+    "https://LeonEck.github.io/PixelTime/polyfills-es5.ebe71d23f991549800ed.js": "c0fd12c4a30da5f0533b0e2725553c04151045b3",
+    "https://LeonEck.github.io/PixelTime/runtime-es2015.a4dadbc03350107420a4.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "https://LeonEck.github.io/PixelTime/runtime-es5.a4dadbc03350107420a4.js": "a9aafcf49f49145093fc831efd9b8e2f6c71bb9c",
+    "https://LeonEck.github.io/PixelTime/scripts.be5be92572dcb59a942c.js": "8ec0a51bd7da1f057139e030841065ff42279215",
+    "https://LeonEck.github.io/PixelTime/styles.2820c3a5fb2cc622b7a1.css": "e77cc1b904d054a9fc47f7d229df5f95f31328a9"
   },
   "navigationUrls": [
     {
@@ -76,5 +84,6 @@
       "positive": false,
       "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
     }
-  ]
+  ],
+  "navigationRequestStrategy": "performance"
 }
