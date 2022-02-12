@@ -67,6 +67,11 @@ export class AppComponent {
     }
   }
 
+  toggleSettingsVisibility() {
+    this.advancedSettingsVisible = !this.advancedSettingsVisible;
+    this.changeDetectorRef.detectChanges();
+  }
+
   private startTick() {
     this.changeDetectorRef.detach();
     this.tick = interval(this.settingsService.duration / this.amountOfBlocks);

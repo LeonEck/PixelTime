@@ -42,7 +42,7 @@
 <div class="experimentalSettings" *ngIf="!showBoard">
   <div
     class="arrow-down"
-    (click)="advancedSettingsVisible = !advancedSettingsVisible"
+    (click)="toggleSettingsVisibility()"
     [ngClass]="{ active: advancedSettingsVisible }"
   ></div>
   <form class="pure-form pure-form-stacked" *ngIf="advancedSettingsVisible">
