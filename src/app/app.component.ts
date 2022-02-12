@@ -88,4 +88,24 @@ export class AppComponent {
         this.changeDetectorRef.detectChanges();
       });
   }
+
+  updateMode($event: any) {
+    this.modeSelection = $event.target.value;
+  }
+
+  updateDurationSelection($event: any) {
+    this.durationSelection = $event.target.value;
+  }
+
+  toggleCSSTransitions($event: any) {
+    this.enableCSSTransitions = $event.target.checked;
+  }
+
+  updateDensitySelection($event: any) {
+    this.pixelDensitySelection = $event.target.value;
+  }
+
+  updateAspectRatioSelection($event: any) {
+    this.aspectRatioSelection = $event.target.value;
+  }
 }

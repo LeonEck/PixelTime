@@ -10,7 +10,7 @@
           class="form-control"
           id="modeSelection"
           required
-          [(ngModel)]="modeSelection"
+          (change)="updateMode($event)"
           name="modeSelection"
         >
           <option *ngFor="let mode of modes" [value]="mode">{{ mode }}</option>
@@ -23,7 +23,7 @@
           class="form-control"
           id="durationSelection"
           required
-          [(ngModel)]="durationSelection"
+          (change)="updateDurationSelection($event)"
           name="durationSelection"
         >
           <option *ngFor="let duration of durations" [value]="duration">
@@ -54,7 +54,7 @@
           id="enableCSSTransitions"
           type="checkbox"
           name="enableCSSTransitions"
-          [(ngModel)]="enableCSSTransitions"
+          (change)="toggleCSSTransitions($event)"
         />
         Enable CSS transitions (VERY hardware demanding!)
       </label>
@@ -67,7 +67,7 @@
           class="form-control"
           id="pixelDensitySelection"
           required
-          [(ngModel)]="pixelDensitySelection"
+          (change)="updateDensitySelection($event)"
           name="pixelDensitySelection"
         >
           <option
@@ -88,7 +88,7 @@
           class="form-control"
           id="aspectRatioSelection"
           required
-          [(ngModel)]="aspectRatioSelection"
+          (change)="updateAspectRatioSelection($event)"
           name="aspectRatioSelection"
         >
           <option
