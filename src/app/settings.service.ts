@@ -137,7 +137,7 @@ export class SettingsService {
     return AspectRatio.sixteenByNine;
   }
 
-  private gcd(a, b) {
+  private gcd(a: number, b: number): number {
     return (b === 0) ? a : this.gcd (b, a % b);
   }
 }

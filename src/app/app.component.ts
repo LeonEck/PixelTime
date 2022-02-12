@@ -2,8 +2,7 @@ import {ChangeDetectorRef, Component} from '@angular/core';
 import {AspectRatio, Duration, Mode, PixelDensity, SettingsService} from './settings.service';
 import {interval, Observable} from 'rxjs';
 import {finalize, takeWhile} from 'rxjs/operators';
-import * as screenfull from 'screenfull';
-import {Screenfull} from 'screenfull';
+import screenfull from 'screenfull';
 
 @Component({
   selector: 'app-root',
@@ -24,15 +23,15 @@ export class AppComponent {
   enableCSSTransitions = false;
   pixelDensitySelection = PixelDensity.low;
 
-  tick: Observable<number>;
+  tick: Observable<number> | undefined;
   nextBlockToClear = 0;
-  amountOfBlocks: number;
+  amountOfBlocks = 0;
 
   constructor(private settingsService: SettingsService, private changeDetectorRef: ChangeDetectorRef) {
     this.aspectRatioSelection = this.settingsService.calculateAspectRatio();
   }
 
-  startApp(event) {
+  startApp(event: any) {
     event.preventDefault();
     this.settingsService.mode = this.modeSelection;
     this.settingsService.duration = SettingsService.minutesToMilliseconds(this.durationSelection);
@@ -45,16 +44,15 @@ export class AppComponent {
 
     this.showBoard = true;
 
-    const sf = (screenfull as Screenfull);
-    if (sf.enabled) {
-      sf.request()
+    if (screenfull.isEnabled) {
+      screenfull.request()
         .then(() => this.startTick());
     } else {
       this.startTick();
     }
   }
 
-  clickOnBoard(clickEvent) {
+  clickOnBoard(clickEvent: any) {
     if (clickEvent.detail === 5) {
       window.location.reload();
     }

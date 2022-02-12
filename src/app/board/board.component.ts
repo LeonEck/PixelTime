@@ -28,7 +28,7 @@ export class BoardComponent {
   amountOfRows = this.settingsService.getAmountOfRows();
   amountOfBlocksPerRow = this.settingsService.getAmountOfBlocks() / this.amountOfRows;
 
-  private static shuffle(a) {
+  private static shuffle(a: Block[]) {
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [a[i], a[j]] = [a[j], a[i]];
