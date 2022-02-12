@@ -6,8 +6,7 @@ import {
   PixelDensity,
   SettingsService,
 } from './settings.service';
-import { interval, Observable } from 'rxjs';
-import { finalize, takeWhile } from 'rxjs/operators';
+import { interval, Observable, finalize, takeWhile } from 'rxjs';
 import screenfull from 'screenfull';
 
 @Component({
