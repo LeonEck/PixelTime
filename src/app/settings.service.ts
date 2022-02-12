@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 
 export enum Mode {
   blackAndWhite = 'Black and white',
-  color = 'Color'
+  color = 'Color',
 }
 
 export enum AspectRatio {
   sixteenByNine = '16:9',
   sixteenByTen = '16:10',
-  fourByThree = '4:3'
+  fourByThree = '4:3',
 }
 
 export enum Duration {
@@ -22,7 +22,7 @@ export enum Duration {
 export enum PixelDensity {
   low = 'Low',
   medium = 'Medium',
-  high = 'High'
+  high = 'High',
 }
 
 const PIXEL_DENSITY_PRESET = {
@@ -72,14 +72,13 @@ const PIXEL_DENSITY_PRESET = {
 
 const BLOCK_STARTING_COLOR = {
   [Mode.blackAndWhite]: 'white',
-  [Mode.color]: 'black'
+  [Mode.color]: 'black',
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SettingsService {
-
   mode: Mode = Mode.blackAndWhite;
   aspectRatio: AspectRatio = AspectRatio.sixteenByNine;
   duration = SettingsService.minutesToMilliseconds(Duration.twentyMinutes);
@@ -127,8 +126,12 @@ export class SettingsService {
     if (calculatedAspectRatio === '16:9' || calculatedAspectRatio === '9:16') {
       return AspectRatio.sixteenByNine;
     }
-    if (calculatedAspectRatio === '16:10' || calculatedAspectRatio === '10:16' ||
-        calculatedAspectRatio === '8:5' || calculatedAspectRatio === '5:8') {
+    if (
+      calculatedAspectRatio === '16:10' ||
+      calculatedAspectRatio === '10:16' ||
+      calculatedAspectRatio === '8:5' ||
+      calculatedAspectRatio === '5:8'
+    ) {
       return AspectRatio.sixteenByTen;
     }
     if (calculatedAspectRatio === '4:3' || calculatedAspectRatio === '3:4') {
@@ -138,6 +141,6 @@ export class SettingsService {
   }
 
   private gcd(a: number, b: number): number {
-    return (b === 0) ? a : this.gcd (b, a % b);
+    return b === 0 ? a : this.gcd(b, a % b);
   }
 }

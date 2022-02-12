@@ -6,19 +6,29 @@
       <legend>Settings</legend>
       <div class="pure-control-group">
         <label for="modeSelection">Mode</label>
-        <select class="form-control"  id="modeSelection"
-                required
-                [(ngModel)]="modeSelection" name="modeSelection">
-          <option *ngFor="let mode of modes" [value]="mode">{{mode}}</option>
+        <select
+          class="form-control"
+          id="modeSelection"
+          required
+          [(ngModel)]="modeSelection"
+          name="modeSelection"
+        >
+          <option *ngFor="let mode of modes" [value]="mode">{{ mode }}</option>
         </select>
       </div>
 
       <div class="pure-control-group">
         <label for="durationSelection">Timer length</label>
-        <select class="form-control"  id="durationSelection"
-                required
-                [(ngModel)]="durationSelection" name="durationSelection">
-          <option *ngFor="let duration of durations" [value]="duration">{{duration}} Minutes</option>
+        <select
+          class="form-control"
+          id="durationSelection"
+          required
+          [(ngModel)]="durationSelection"
+          name="durationSelection"
+        >
+          <option *ngFor="let duration of durations" [value]="duration">
+            {{ duration }} Minutes
+          </option>
         </select>
       </div>
 
@@ -30,35 +40,71 @@
 </div>
 
 <div class="experimentalSettings" *ngIf="!showBoard">
-  <div class="arrow-down" (click)="advancedSettingsVisible = !advancedSettingsVisible" [ngClass]="{'active': advancedSettingsVisible}"></div>
+  <div
+    class="arrow-down"
+    (click)="advancedSettingsVisible = !advancedSettingsVisible"
+    [ngClass]="{ active: advancedSettingsVisible }"
+  ></div>
   <form class="pure-form pure-form-stacked" *ngIf="advancedSettingsVisible">
     <fieldset>
       <legend>Advanced settings</legend>
 
       <label for="enableCSSTransitions" class="pure-checkbox">
-        <input id="enableCSSTransitions" type="checkbox" name="enableCSSTransitions" [(ngModel)]="enableCSSTransitions"> Enable CSS transitions (VERY hardware demanding!)
+        <input
+          id="enableCSSTransitions"
+          type="checkbox"
+          name="enableCSSTransitions"
+          [(ngModel)]="enableCSSTransitions"
+        />
+        Enable CSS transitions (VERY hardware demanding!)
       </label>
 
       <div class="pure-control-group">
-        <label for="pixelDensitySelection">Pixel density (Higher is more hardware demanding)</label>
-        <select class="form-control"  id="pixelDensitySelection"
-                required
-                [(ngModel)]="pixelDensitySelection" name="pixelDensitySelection">
-          <option *ngFor="let pixelDensity of pixelDensities" [value]="pixelDensity">{{pixelDensity}}</option>
+        <label for="pixelDensitySelection"
+          >Pixel density (Higher is more hardware demanding)</label
+        >
+        <select
+          class="form-control"
+          id="pixelDensitySelection"
+          required
+          [(ngModel)]="pixelDensitySelection"
+          name="pixelDensitySelection"
+        >
+          <option
+            *ngFor="let pixelDensity of pixelDensities"
+            [value]="pixelDensity"
+          >
+            {{ pixelDensity }}
+          </option>
         </select>
       </div>
 
       <div class="pure-control-group">
-        <label for="aspectRatioSelection">Aspect ratio (Is automatically detected. Only change it if the detection is wrong.)</label>
-        <select class="form-control"  id="aspectRatioSelection"
-                required
-                [(ngModel)]="aspectRatioSelection" name="aspectRatioSelection">
-          <option *ngFor="let aspectRatio of aspectRatios" [value]="aspectRatio">{{aspectRatio}}</option>
+        <label for="aspectRatioSelection"
+          >Aspect ratio (Is automatically detected. Only change it if the
+          detection is wrong.)</label
+        >
+        <select
+          class="form-control"
+          id="aspectRatioSelection"
+          required
+          [(ngModel)]="aspectRatioSelection"
+          name="aspectRatioSelection"
+        >
+          <option
+            *ngFor="let aspectRatio of aspectRatios"
+            [value]="aspectRatio"
+          >
+            {{ aspectRatio }}
+          </option>
         </select>
       </div>
-
     </fieldset>
   </form>
 </div>
 
-<app-board *ngIf="showBoard" [nextBlockToClear]="nextBlockToClear" (click)="clickOnBoard($event)"></app-board>
+<app-board
+  *ngIf="showBoard"
+  [nextBlockToClear]="nextBlockToClear"
+  (click)="clickOnBoard($event)"
+></app-board>

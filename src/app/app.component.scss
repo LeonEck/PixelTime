@@ -30,15 +30,16 @@
     cursor: pointer;
   }
 
-  &:before, &:after {
-    content: "";
+  &:before,
+  &:after {
+    content: '';
     display: block;
     width: 20px;
     height: 5px;
     background: #eeeeee;
     position: absolute;
     top: 20px;
-    transition: transform .5s;
+    transition: transform 0.5s;
   }
 
   &:before {

@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {Mode, SettingsService} from '../settings.service';
-import {Block} from '../block/block.component';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Mode, SettingsService } from '../settings.service';
+import { Block } from '../block/block.component';
 
 interface Row {
   blocks: Block[];
@@ -10,10 +10,9 @@ interface Row {
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardComponent {
-
   @Input()
   set nextBlockToClear(value: number) {
     if (value === -1) {
@@ -26,7 +25,8 @@ export class BoardComponent {
   rows: Row[] = [];
   blocks: Block[] = [];
   amountOfRows = this.settingsService.getAmountOfRows();
-  amountOfBlocksPerRow = this.settingsService.getAmountOfBlocks() / this.amountOfRows;
+  amountOfBlocksPerRow =
+    this.settingsService.getAmountOfBlocks() / this.amountOfRows;
 
   private static shuffle(a: Block[]) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -41,13 +41,13 @@ export class BoardComponent {
       const blocksForRow = [];
       for (let j = 0; j < this.amountOfBlocksPerRow; j++) {
         const block = {
-          color: this.settingsService.getStartingColor()
+          color: this.settingsService.getStartingColor(),
         };
         this.blocks.push(block);
         blocksForRow.push(block);
       }
       this.rows.push({
-        blocks: blocksForRow
+        blocks: blocksForRow,
       });
     }
     BoardComponent.shuffle(this.blocks);

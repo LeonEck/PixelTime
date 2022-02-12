@@ -1,13 +1,19 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
-import {AspectRatio, Duration, Mode, PixelDensity, SettingsService} from './settings.service';
-import {interval, Observable} from 'rxjs';
-import {finalize, takeWhile} from 'rxjs/operators';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import {
+  AspectRatio,
+  Duration,
+  Mode,
+  PixelDensity,
+  SettingsService,
+} from './settings.service';
+import { interval, Observable } from 'rxjs';
+import { finalize, takeWhile } from 'rxjs/operators';
 import screenfull from 'screenfull';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   modes = Object.values(Mode);
@@ -27,14 +33,19 @@ export class AppComponent {
   nextBlockToClear = 0;
   amountOfBlocks = 0;
 
-  constructor(private settingsService: SettingsService, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(
+    private settingsService: SettingsService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
     this.aspectRatioSelection = this.settingsService.calculateAspectRatio();
   }
 
   startApp(event: any) {
     event.preventDefault();
     this.settingsService.mode = this.modeSelection;
-    this.settingsService.duration = SettingsService.minutesToMilliseconds(this.durationSelection);
+    this.settingsService.duration = SettingsService.minutesToMilliseconds(
+      this.durationSelection
+    );
 
     this.settingsService.enableCSSTransition = this.enableCSSTransitions;
     this.settingsService.pixelDensity = this.pixelDensitySelection;
@@ -45,8 +56,7 @@ export class AppComponent {
     this.showBoard = true;
 
     if (screenfull.isEnabled) {
-      screenfull.request()
-        .then(() => this.startTick());
+      screenfull.request().then(() => this.startTick());
     } else {
       this.startTick();
     }
@@ -63,7 +73,7 @@ export class AppComponent {
     this.tick = interval(this.settingsService.duration / this.amountOfBlocks);
     this.tick
       .pipe(
-        takeWhile(value => value < this.amountOfBlocks),
+        takeWhile((value) => value < this.amountOfBlocks),
         finalize(() => {
           this.nextBlockToClear = -1;
           this.changeDetectorRef.detectChanges();

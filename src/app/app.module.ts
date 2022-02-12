@@ -7,16 +7,9 @@ import { BlockComponent } from './block/block.component';
 import { BoardComponent } from './board/board.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BlockComponent,
-    BoardComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-  ],
+  declarations: [AppComponent, BlockComponent, BoardComponent],
+  imports: [BrowserModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
