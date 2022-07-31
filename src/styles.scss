@@ -1,14 +1,51 @@
 @import url('https://unpkg.com/purecss@2.0.6/build/pure-min.css');
 
+:root {
+  --border-color: #eee;
+  --highlight-color: #0071e3;
+}
+
 html,
 body {
-  height: 100%;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   -ms-overflow-style: none; // IE 10+
   scrollbar-width: none; // Firefox
 }
 
+@supports (min-height: 100dvh) {
+  html,
+  body {
+    min-height: 100dvh;
+  }
+}
+
+app-root {
+  display: block;
+  position: relative;
+  min-height: 100vh;
+}
+
+@supports (min-height: 100dvh) {
+  app-root {
+    min-height: 100dvh;
+  }
+}
+
 body::-webkit-scrollbar {
   display: none; // Safari and Chrome
+}
+
+h1 {
+  margin-top: 0;
+  padding-top: 0.67em;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 50rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-bottom: calc(2rem + 55px); /* Footer */
 }

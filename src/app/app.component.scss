@@ -1,7 +1,6 @@
 @mixin settingsBlock {
   position: relative;
   margin: 0 auto;
-  width: 350px;
   padding: 15px;
 }
 
@@ -76,4 +75,47 @@ button {
   &:hover {
     background-color: #14679e;
   }
+}
+
+a {
+  color: var(--highlight-color);
+}
+
+footer {
+  height: 55px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid var(--border-color);
+}
+
+footer .footer-container {
+  margin: 0 auto;
+  max-width: 50rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  line-height: 1;
+}
+
+footer .footer-profiles {
+  display: flex;
+  flex-direction: row;
+  place-content: center center;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+footer .footer-homepage-link {
+  text-decoration: none;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+footer .footer-homepage-link svg {
+  transition: 0.3s;
+  height: 32px;
+  width: 32px;
+  stroke: var(--highlight-color);
 }
