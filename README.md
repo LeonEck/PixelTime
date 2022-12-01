@@ -7,7 +7,3 @@ https://leoneck.github.io/PixelTime/
 ```
 npm run build-gh
 ```
-
-## TODO
-
-- [ ] New mode: Smooth colors. Colors are picked relative to surrounding colors
