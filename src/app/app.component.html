@@ -97,6 +97,7 @@
             <option
               *ngFor="let aspectRatio of aspectRatios"
               [value]="aspectRatio"
+              [selected]="aspectRatio === aspectRatioSelection"
             >
               {{ aspectRatio }}
             </option>
