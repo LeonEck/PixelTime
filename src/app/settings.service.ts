@@ -89,9 +89,7 @@ export class SettingsService {
     return +minutes * 60 * 1000;
   }
 
-  constructor() {
-    this.calculateAspectRatio();
-  }
+  constructor() {}
 
   getStartingColor() {
     return BLOCK_STARTING_COLOR[this.mode];
