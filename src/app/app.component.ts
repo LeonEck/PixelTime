@@ -59,6 +59,7 @@ export class AppComponent {
     } else {
       this.startTick();
     }
+    this.changeDetectorRef.detectChanges();
   }
 
   clickOnBoard(clickEvent: any) {
