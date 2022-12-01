@@ -132,7 +132,12 @@ export class SettingsService {
     ) {
       return AspectRatio.sixteenByTen;
     }
-    if (calculatedAspectRatio === '4:3' || calculatedAspectRatio === '3:4') {
+    if (
+      calculatedAspectRatio === '4:3' ||
+      calculatedAspectRatio === '3:4' ||
+      calculatedAspectRatio === '683:512' || // iPad Pro 12.9
+      calculatedAspectRatio === '512:683' // iPad Pro 12.9
+    ) {
       return AspectRatio.fourByThree;
     }
     return AspectRatio.sixteenByNine;
