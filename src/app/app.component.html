@@ -1,7 +1,7 @@
 <main class="container" *ngIf="!showBoard">
-  <h1 class="center" *ngIf="!showBoard">PixelTime</h1>
+  <h1 class="center">PixelTime</h1>
 
-  <div class="settings" *ngIf="!showBoard">
+  <div class="settings">
     <form class="pure-form pure-form-aligned">
       <fieldset>
         <legend>Settings</legend>
@@ -42,13 +42,13 @@
     </form>
   </div>
 
-  <div class="experimentalSettings" *ngIf="!showBoard">
+  <div class="experimentalSettings">
     <div
       class="arrow-down"
       (click)="toggleSettingsVisibility()"
-      [ngClass]="{ active: advancedSettingsVisible }"
+      [ngClass]="{ active: advancedSettingsVisible() }"
     ></div>
-    <form class="pure-form pure-form-stacked" *ngIf="advancedSettingsVisible">
+    <form class="pure-form pure-form-stacked" *ngIf="advancedSettingsVisible()">
       <fieldset>
         <legend>Advanced settings</legend>
 
@@ -108,11 +108,7 @@
   </div>
 </main>
 
-<app-board
-  *ngIf="showBoard"
-  [nextBlockToClear]="nextBlockToClear"
-  (click)="clickOnBoard($event)"
-></app-board>
+<app-board *ngIf="showBoard" [nextBlockToClear]="nextBlockToClear"></app-board>
 
 <footer *ngIf="!showBoard">
   <div class="footer-container">

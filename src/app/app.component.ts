@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
 import {
   AspectRatio,
   Duration,
@@ -8,22 +8,29 @@ import {
 } from './settings.service';
 import { interval, Observable, finalize, takeWhile } from 'rxjs';
 import screenfull from 'screenfull';
+import { NgClass, NgFor, NgIf } from '@angular/common';
+import { BoardComponent } from './board/board.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [NgIf, NgClass, NgFor, BoardComponent],
 })
 export class AppComponent {
+  settingsService = inject(SettingsService);
+  changeDetectorRef = inject(ChangeDetectorRef);
+
   modes = Object.values(Mode);
   aspectRatios = Object.values(AspectRatio);
   durations = Object.values(Duration);
   pixelDensities = Object.values(PixelDensity);
 
   showBoard = false;
-  advancedSettingsVisible = false;
+  advancedSettingsVisible = signal(false);
   modeSelection = Mode.blackAndWhite;
-  aspectRatioSelection = AspectRatio.sixteenByNine;
+  aspectRatioSelection = this.settingsService.calculateAspectRatio();
   durationSelection = Duration.twentyMinutes;
   enableCSSTransitions = false;
   pixelDensitySelection = PixelDensity.low;
@@ -32,18 +39,11 @@ export class AppComponent {
   nextBlockToClear = 0;
   amountOfBlocks = 0;
 
-  constructor(
-    private settingsService: SettingsService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-    this.aspectRatioSelection = this.settingsService.calculateAspectRatio();
-  }
-
   startApp(event: any) {
     event.preventDefault();
     this.settingsService.mode = this.modeSelection;
     this.settingsService.duration = SettingsService.minutesToMilliseconds(
-      this.durationSelection
+      this.durationSelection,
     );
 
     this.settingsService.enableCSSTransition = this.enableCSSTransitions;
@@ -62,14 +62,8 @@ export class AppComponent {
     this.changeDetectorRef.detectChanges();
   }
 
-  clickOnBoard(clickEvent: any) {
-    if (clickEvent.detail === 5) {
-      window.location.reload();
-    }
-  }
-
   toggleSettingsVisibility() {
-    this.advancedSettingsVisible = !this.advancedSettingsVisible;
+    this.advancedSettingsVisible.update((currentValue) => !currentValue);
     this.changeDetectorRef.detectChanges();
   }
 
@@ -82,7 +76,7 @@ export class AppComponent {
         finalize(() => {
           this.nextBlockToClear = -1;
           this.changeDetectorRef.detectChanges();
-        })
+        }),
       )
       .subscribe((value) => {
         this.nextBlockToClear = value;

@@ -1,6 +1,12 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+} from '@angular/core';
 import { Mode, SettingsService } from '../settings.service';
-import { Block } from '../block/block.component';
+import { Block, BlockComponent } from '../block/block.component';
+import { NgFor } from '@angular/common';
 
 interface Row {
   blocks: Block[];
@@ -11,8 +17,12 @@ interface Row {
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgFor, BlockComponent],
 })
 export class BoardComponent {
+  settingsService = inject(SettingsService);
+
   @Input()
   set nextBlockToClear(value: number) {
     if (value === -1) {
@@ -36,7 +46,7 @@ export class BoardComponent {
     return a;
   }
 
-  constructor(private settingsService: SettingsService) {
+  constructor() {
     for (let i = 0; i < this.amountOfRows; i++) {
       const blocksForRow = [];
       for (let j = 0; j < this.amountOfBlocksPerRow; j++) {
