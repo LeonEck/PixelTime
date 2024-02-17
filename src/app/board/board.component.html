@@ -1,3 +1,7 @@
-<div class="row" *ngFor="let row of rows">
-  <app-block *ngFor="let block of row.blocks" [color]="block.color"></app-block>
-</div>
+@for (row of rows; track row.id) {
+  <div class="row">
+    @for (block of row.blocks; track block.id) {
+      <app-block [color]="block.color"></app-block>
+    }
+  </div>
+}

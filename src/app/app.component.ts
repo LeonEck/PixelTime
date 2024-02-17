@@ -8,7 +8,7 @@ import {
 } from './settings.service';
 import { interval, Observable, finalize, takeWhile } from 'rxjs';
 import screenfull from 'screenfull';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { BoardComponent } from './board/board.component';
 
 @Component({
@@ -16,7 +16,7 @@ import { BoardComponent } from './board/board.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [NgIf, NgClass, NgFor, BoardComponent],
+  imports: [NgClass, BoardComponent],
 })
 export class AppComponent {
   settingsService = inject(SettingsService);
@@ -31,7 +31,7 @@ export class AppComponent {
   advancedSettingsVisible = signal(false);
   modeSelection = Mode.blackAndWhite;
   aspectRatioSelection = this.settingsService.calculateAspectRatio();
-  durationSelection = Duration.twentyMinutes;
+  durationSelection = Duration.tenMinutes;
   enableCSSTransitions = false;
   pixelDensitySelection = PixelDensity.low;
 

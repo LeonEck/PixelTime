@@ -8,6 +8,7 @@ import {
 import { SettingsService } from '../settings.service';
 
 export interface Block {
+  id: string;
   color: string;
 }
 
@@ -18,7 +19,7 @@ export interface Block {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
-export class BlockComponent implements Block {
+export class BlockComponent {
   settingsService = inject(SettingsService);
 
   @HostBinding('style.background-color') @Input() color = '';

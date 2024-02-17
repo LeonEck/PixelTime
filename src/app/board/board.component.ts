@@ -6,9 +6,9 @@ import {
 } from '@angular/core';
 import { Mode, SettingsService } from '../settings.service';
 import { Block, BlockComponent } from '../block/block.component';
-import { NgFor } from '@angular/common';
 
 interface Row {
+  id: number;
   blocks: Block[];
 }
 
@@ -18,7 +18,7 @@ interface Row {
   styleUrls: ['./board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgFor, BlockComponent],
+  imports: [BlockComponent],
 })
 export class BoardComponent {
   settingsService = inject(SettingsService);
@@ -51,12 +51,14 @@ export class BoardComponent {
       const blocksForRow = [];
       for (let j = 0; j < this.amountOfBlocksPerRow; j++) {
         const block = {
+          id: `${i}-${j}`,
           color: this.settingsService.getStartingColor(),
         };
         this.blocks.push(block);
         blocksForRow.push(block);
       }
       this.rows.push({
+        id: i,
         blocks: blocksForRow,
       });
     }

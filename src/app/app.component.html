@@ -1,140 +1,144 @@
-<main class="container" *ngIf="!showBoard">
-  <h1 class="center">PixelTime</h1>
-
-  <div class="settings">
-    <form class="pure-form pure-form-aligned">
-      <fieldset>
-        <legend>Settings</legend>
-        <div class="pure-control-group">
-          <label for="modeSelection">Mode</label>
-          <select
-            class="form-control"
-            id="modeSelection"
-            required
-            (change)="updateMode($event)"
-            name="modeSelection"
-          >
-            <option *ngFor="let mode of modes" [value]="mode">
-              {{ mode }}
-            </option>
-          </select>
-        </div>
-
-        <div class="pure-control-group">
-          <label for="durationSelection">Timer length</label>
-          <select
-            class="form-control"
-            id="durationSelection"
-            required
-            (change)="updateDurationSelection($event)"
-            name="durationSelection"
-          >
-            <option *ngFor="let duration of durations" [value]="duration">
-              {{ duration }} Minutes
-            </option>
-          </select>
-        </div>
-
-        <div class="pure-controls">
-          <button type="submit" (click)="startApp($event)">Start</button>
-        </div>
-      </fieldset>
-    </form>
-  </div>
-
-  <div class="experimentalSettings">
-    <div
-      class="arrow-down"
-      (click)="toggleSettingsVisibility()"
-      [ngClass]="{ active: advancedSettingsVisible() }"
-    ></div>
-    <form class="pure-form pure-form-stacked" *ngIf="advancedSettingsVisible()">
-      <fieldset>
-        <legend>Advanced settings</legend>
-
-        <label for="enableCSSTransitions" class="pure-checkbox">
-          <input
-            id="enableCSSTransitions"
-            type="checkbox"
-            name="enableCSSTransitions"
-            (change)="toggleCSSTransitions($event)"
-          />
-          Enable CSS transitions (VERY hardware demanding!)
-        </label>
-
-        <div class="pure-control-group">
-          <label for="pixelDensitySelection"
-            >Pixel density (Higher is more hardware demanding)</label
-          >
-          <select
-            class="form-control"
-            id="pixelDensitySelection"
-            required
-            (change)="updateDensitySelection($event)"
-            name="pixelDensitySelection"
-          >
-            <option
-              *ngFor="let pixelDensity of pixelDensities"
-              [value]="pixelDensity"
+@if (!showBoard) {
+  <main class="container">
+    <h1 class="center">PixelTime</h1>
+    <div class="settings">
+      <form class="pure-form pure-form-aligned">
+        <fieldset>
+          <legend>Settings</legend>
+          <div class="pure-control-group">
+            <label for="modeSelection">Mode</label>
+            <select
+              class="form-control"
+              id="modeSelection"
+              required
+              (change)="updateMode($event)"
+              name="modeSelection"
             >
-              {{ pixelDensity }}
-            </option>
-          </select>
-        </div>
-
-        <div class="pure-control-group">
-          <label for="aspectRatioSelection"
-            >Aspect ratio (Is automatically detected. Only change it if the
-            detection is wrong.)</label
-          >
-          <select
-            class="form-control"
-            id="aspectRatioSelection"
-            required
-            (change)="updateAspectRatioSelection($event)"
-            name="aspectRatioSelection"
-          >
-            <option
-              *ngFor="let aspectRatio of aspectRatios"
-              [value]="aspectRatio"
-              [selected]="aspectRatio === aspectRatioSelection"
+              @for (mode of modes; track mode) {
+                <option [value]="mode">
+                  {{ mode }}
+                </option>
+              }
+            </select>
+          </div>
+          <div class="pure-control-group">
+            <label for="durationSelection">Timer length</label>
+            <select
+              class="form-control"
+              id="durationSelection"
+              required
+              (change)="updateDurationSelection($event)"
+              name="durationSelection"
             >
-              {{ aspectRatio }}
-            </option>
-          </select>
-        </div>
-      </fieldset>
-    </form>
-  </div>
-</main>
-
-<app-board *ngIf="showBoard" [nextBlockToClear]="nextBlockToClear"></app-board>
-
-<footer *ngIf="!showBoard">
-  <div class="footer-container">
-    <div class="footer-profiles">
-      <a
-        href="https://leoneck.de"
-        target="_blank"
-        rel="noopener"
-        class="footer-homepage-link"
-      >
-        <svg
-          class="no-svg-styling"
-          viewBox="0 0 24 24"
-          stroke-width="2"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <title>leoneck.de</title>
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <polyline points="7 8 3 12 7 16" />
-          <polyline points="17 8 21 12 17 16" />
-          <line x1="14" y1="4" x2="10" y2="20" />
-        </svg>
-        <div>Created by Leon Eck</div>
-      </a>
+              @for (duration of durations; track duration) {
+                <option
+                  [value]="duration"
+                  [selected]="duration === durationSelection"
+                >
+                  {{ duration }} Minutes
+                </option>
+              }
+            </select>
+          </div>
+          <div class="pure-controls">
+            <button type="submit" (click)="startApp($event)">Start</button>
+          </div>
+        </fieldset>
+      </form>
     </div>
-  </div>
-</footer>
+    <div class="experimentalSettings">
+      <div
+        class="arrow-down"
+        (click)="toggleSettingsVisibility()"
+        [ngClass]="{ active: advancedSettingsVisible() }"
+      ></div>
+      @if (advancedSettingsVisible()) {
+        <form class="pure-form pure-form-stacked">
+          <fieldset>
+            <legend>Advanced settings</legend>
+            <label for="enableCSSTransitions" class="pure-checkbox">
+              <input
+                id="enableCSSTransitions"
+                type="checkbox"
+                name="enableCSSTransitions"
+                (change)="toggleCSSTransitions($event)"
+              />
+              Enable CSS transitions (VERY hardware demanding!)
+            </label>
+            <div class="pure-control-group">
+              <label for="pixelDensitySelection"
+                >Pixel density (Higher is more hardware demanding)</label
+              >
+              <select
+                class="form-control"
+                id="pixelDensitySelection"
+                required
+                (change)="updateDensitySelection($event)"
+                name="pixelDensitySelection"
+              >
+                @for (pixelDensity of pixelDensities; track pixelDensity) {
+                  <option [value]="pixelDensity">
+                    {{ pixelDensity }}
+                  </option>
+                }
+              </select>
+            </div>
+            <div class="pure-control-group">
+              <label for="aspectRatioSelection"
+                >Aspect ratio (Is automatically detected. Only change it if the
+                detection is wrong.)</label
+              >
+              <select
+                class="form-control"
+                id="aspectRatioSelection"
+                required
+                (change)="updateAspectRatioSelection($event)"
+                name="aspectRatioSelection"
+              >
+                @for (aspectRatio of aspectRatios; track aspectRatio) {
+                  <option
+                    [value]="aspectRatio"
+                    [selected]="aspectRatio === aspectRatioSelection"
+                  >
+                    {{ aspectRatio }}
+                  </option>
+                }
+              </select>
+            </div>
+          </fieldset>
+        </form>
+      }
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-profiles">
+        <a
+          href="https://leoneck.de"
+          target="_blank"
+          rel="noopener"
+          class="footer-homepage-link"
+        >
+          <svg
+            class="no-svg-styling"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <title>leoneck.de</title>
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <polyline points="7 8 3 12 7 16" />
+            <polyline points="17 8 21 12 17 16" />
+            <line x1="14" y1="4" x2="10" y2="20" />
+          </svg>
+          <div>Created by Leon Eck</div>
+        </a>
+      </div>
+    </div>
+  </footer>
+} @else {
+  <app-board [nextBlockToClear]="nextBlockToClear"></app-board>
+}
