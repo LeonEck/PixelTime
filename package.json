@@ -2,7 +2,7 @@
   "name": "pixel-time",
   "version": "0.0.0",
   "engines": {
-    "node": "^18.12.0"
+    "node": "^20.11.0"
   },
   "scripts": {
     "start": "ng serve",
@@ -12,25 +12,25 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "16.1.6",
-    "@angular/common": "16.1.6",
-    "@angular/compiler": "16.1.6",
-    "@angular/core": "16.1.6",
-    "@angular/forms": "16.1.6",
-    "@angular/platform-browser": "16.1.6",
-    "@angular/platform-browser-dynamic": "16.1.6",
-    "@angular/router": "16.1.6",
+    "@angular/animations": "17.2.1",
+    "@angular/common": "17.2.1",
+    "@angular/compiler": "17.2.1",
+    "@angular/core": "17.2.1",
+    "@angular/forms": "17.2.1",
+    "@angular/platform-browser": "17.2.1",
+    "@angular/platform-browser-dynamic": "17.2.1",
+    "@angular/router": "17.2.1",
     "randomcolor": "0.6.2",
     "rxjs": "7.8.1",
     "screenfull": "6.0.2",
-    "tslib": "2.6.0"
+    "tslib": "2.6.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "16.1.5",
-    "@angular/cli": "16.1.5",
-    "@angular/compiler-cli": "16.1.6",
-    "angular-cli-ghpages": "1.0.6",
-    "prettier": "3.0.0",
-    "typescript": "5.1.6"
+    "@angular-devkit/build-angular": "17.2.0",
+    "@angular/cli": "17.2.0",
+    "@angular/compiler-cli": "17.2.1",
+    "angular-cli-ghpages": "1.0.7",
+    "prettier": "3.2.5",
+    "typescript": "5.3.3"
   }
 }

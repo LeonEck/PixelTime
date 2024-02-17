@@ -9,7 +9,9 @@
         "@schematics/angular:component": {
           "changeDetection": "OnPush",
           "style": "scss",
-          "skipTests": true
+          "skipTests": true,
+          "displayBlock": true,
+          "standalone": true
         },
         "@schematics/angular:application": {
           "strict": true
@@ -38,11 +40,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/pixel-time",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
@@ -66,12 +68,9 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -80,10 +79,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "PixelTime:build:production"
+              "buildTarget": "PixelTime:build:production"
             },
             "development": {
-              "browserTarget": "PixelTime:build:development"
+              "buildTarget": "PixelTime:build:development"
             }
           },
           "defaultConfiguration": "development"
