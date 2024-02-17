@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   inject,
   Input,
@@ -22,15 +23,7 @@ interface Row {
 })
 export class BoardComponent {
   settingsService = inject(SettingsService);
-
-  @Input()
-  set nextBlockToClear(value: number) {
-    if (value === -1) {
-      this.timerFinished();
-    } else {
-      this.blocks[value].color = this.settingsService.getNewColor();
-    }
-  }
+  changeDetectorRef = inject(ChangeDetectorRef);
 
   rows: Row[] = [];
   blocks: Block[] = [];
@@ -63,6 +56,15 @@ export class BoardComponent {
       });
     }
     BoardComponent.shuffle(this.blocks);
+
+    this.settingsService.nextBlockToClear.subscribe((value) => {
+      if (value === -1) {
+        this.timerFinished();
+      } else {
+        this.blocks[value].color = this.settingsService.getNewColor();
+      }
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   private timerFinished() {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 
 export enum Mode {
   blackAndWhite = 'Black and white',
@@ -84,6 +85,7 @@ export class SettingsService {
   duration = SettingsService.minutesToMilliseconds(Duration.twentyMinutes);
   enableCSSTransition = false;
   pixelDensity = PixelDensity.low;
+  nextBlockToClear = new ReplaySubject<number>();
 
   static minutesToMilliseconds(minutes: string) {
     return +minutes * 60 * 1000;

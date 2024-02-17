@@ -36,8 +36,10 @@ export class AppComponent {
   pixelDensitySelection = PixelDensity.low;
 
   tick: Observable<number> | undefined;
-  nextBlockToClear = 0;
   amountOfBlocks = 0;
+  amountOfBlocksCleared = 0;
+  finishTime = 0;
+  timeOfLastTick = -1;
 
   startApp(event: any) {
     event.preventDefault();
@@ -69,18 +71,53 @@ export class AppComponent {
 
   private startTick() {
     this.changeDetectorRef.detach();
+    // Ideally we want to tick for every block. Since the interval could become inaccurate, we calculate the real amount of blocks to clear each time it ticks.
     this.tick = interval(this.settingsService.duration / this.amountOfBlocks);
+    const startTime = performance.now();
+    this.finishTime = startTime + this.settingsService.duration;
     this.tick
       .pipe(
-        takeWhile((value) => value < this.amountOfBlocks),
+        takeWhile(() => this.amountOfBlocksCleared < this.amountOfBlocks),
         finalize(() => {
-          this.nextBlockToClear = -1;
-          this.changeDetectorRef.detectChanges();
+          this.settingsService.nextBlockToClear.next(-1);
         }),
       )
-      .subscribe((value) => {
-        this.nextBlockToClear = value;
-        this.changeDetectorRef.detectChanges();
+      .subscribe(() => {
+        const currentTime = performance.now();
+        if (this.timeOfLastTick < 0) {
+          this.timeOfLastTick = currentTime;
+        }
+        const timeLeft = this.finishTime - currentTime;
+        //console.log('timeLeft', timeLeft);
+        const amountOfBlocksLeft =
+          this.amountOfBlocks - this.amountOfBlocksCleared;
+        //console.log('amountOfBlocksLeft', amountOfBlocksLeft);
+        const amountOfBlocksThatNeedToBeClearedInAMillisecond =
+          amountOfBlocksLeft / timeLeft;
+        /*console.log(
+          'amountOfBlocksThatNeedToBeClearedInAMillisecond',
+          amountOfBlocksThatNeedToBeClearedInAMillisecond,
+        );*/
+        const millisecondsSinceLastTick = currentTime - this.timeOfLastTick;
+        //console.log('millisecondsSinceLastTick', millisecondsSinceLastTick);
+        const amountOfBlocksToClearThisTick = Math.round(
+          amountOfBlocksThatNeedToBeClearedInAMillisecond *
+            millisecondsSinceLastTick,
+        );
+        /*console.log(
+          'amountOfBlocksToClearThisTick',
+          amountOfBlocksToClearThisTick,
+        );*/
+
+        for (let i = 0; i < amountOfBlocksToClearThisTick; i++) {
+          const indexToClear = this.amountOfBlocksCleared + i;
+          if (indexToClear < this.amountOfBlocks) {
+            this.settingsService.nextBlockToClear.next(indexToClear);
+          }
+        }
+
+        this.amountOfBlocksCleared += amountOfBlocksToClearThisTick;
+        this.timeOfLastTick = currentTime;
       });
   }
 
