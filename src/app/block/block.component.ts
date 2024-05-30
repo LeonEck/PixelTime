@@ -1,14 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  HostBinding,
   inject,
-  Input,
+  input,
 } from '@angular/core';
 import { SettingsService } from '../settings.service';
 
 export interface Block {
-  id: string;
   color: string;
 }
 
@@ -18,11 +16,13 @@ export interface Block {
   styleUrls: ['./block.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  host: {
+    '[style.background-color]': 'color()',
+    '[class.enableTransition]': 'settingsService.enableCSSTransition()',
+  },
 })
 export class BlockComponent {
   settingsService = inject(SettingsService);
 
-  @HostBinding('style.background-color') @Input() color = '';
-  @HostBinding('class.enableTransition') enableTransition =
-    this.settingsService.enableCSSTransition;
+  color = input('');
 }

@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   AspectRatio,
   Duration,
@@ -6,9 +12,8 @@ import {
   PixelDensity,
   SettingsService,
 } from './settings.service';
-import { interval, Observable, finalize, takeWhile } from 'rxjs';
+import { finalize, interval, Observable, takeWhile } from 'rxjs';
 import screenfull from 'screenfull';
-import { NgClass } from '@angular/common';
 import { BoardComponent } from './board/board.component';
 
 @Component({
@@ -16,7 +21,8 @@ import { BoardComponent } from './board/board.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [NgClass, BoardComponent],
+  imports: [BoardComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   settingsService = inject(SettingsService);
@@ -27,11 +33,11 @@ export class AppComponent {
   durations = Object.values(Duration);
   pixelDensities = Object.values(PixelDensity);
 
-  showBoard = false;
+  showBoard = signal(false);
   advancedSettingsVisible = signal(false);
   modeSelection = Mode.blackAndWhite;
-  aspectRatioSelection = this.settingsService.calculateAspectRatio();
-  durationSelection = Duration.tenMinutes;
+  aspectRatioSelection = signal(this.settingsService.calculateAspectRatio());
+  durationSelection = signal(Duration.tenMinutes);
   enableCSSTransitions = false;
   pixelDensitySelection = PixelDensity.low;
 
@@ -45,16 +51,16 @@ export class AppComponent {
     event.preventDefault();
     this.settingsService.mode = this.modeSelection;
     this.settingsService.duration = SettingsService.minutesToMilliseconds(
-      this.durationSelection,
+      this.durationSelection(),
     );
 
-    this.settingsService.enableCSSTransition = this.enableCSSTransitions;
+    this.settingsService.enableCSSTransition.set(this.enableCSSTransitions);
     this.settingsService.pixelDensity = this.pixelDensitySelection;
-    this.settingsService.aspectRatio = this.aspectRatioSelection;
+    this.settingsService.aspectRatio = this.aspectRatioSelection();
 
     this.amountOfBlocks = this.settingsService.getAmountOfBlocks();
 
-    this.showBoard = true;
+    this.showBoard.set(true);
 
     if (screenfull.isEnabled) {
       screenfull.request().then(() => this.startTick());
@@ -88,26 +94,15 @@ export class AppComponent {
           this.timeOfLastTick = currentTime;
         }
         const timeLeft = this.finishTime - currentTime;
-        //console.log('timeLeft', timeLeft);
         const amountOfBlocksLeft =
           this.amountOfBlocks - this.amountOfBlocksCleared;
-        //console.log('amountOfBlocksLeft', amountOfBlocksLeft);
         const amountOfBlocksThatNeedToBeClearedInAMillisecond =
           amountOfBlocksLeft / timeLeft;
-        /*console.log(
-          'amountOfBlocksThatNeedToBeClearedInAMillisecond',
-          amountOfBlocksThatNeedToBeClearedInAMillisecond,
-        );*/
         const millisecondsSinceLastTick = currentTime - this.timeOfLastTick;
-        //console.log('millisecondsSinceLastTick', millisecondsSinceLastTick);
         const amountOfBlocksToClearThisTick = Math.round(
           amountOfBlocksThatNeedToBeClearedInAMillisecond *
             millisecondsSinceLastTick,
         );
-        /*console.log(
-          'amountOfBlocksToClearThisTick',
-          amountOfBlocksToClearThisTick,
-        );*/
 
         for (let i = 0; i < amountOfBlocksToClearThisTick; i++) {
           const indexToClear = this.amountOfBlocksCleared + i;
@@ -126,7 +121,7 @@ export class AppComponent {
   }
 
   updateDurationSelection($event: any) {
-    this.durationSelection = $event.target.value;
+    this.durationSelection.set($event.target.value);
   }
 
   toggleCSSTransitions($event: any) {
@@ -138,6 +133,6 @@ export class AppComponent {
   }
 
   updateAspectRatioSelection($event: any) {
-    this.aspectRatioSelection = $event.target.value;
+    this.aspectRatioSelection.set($event.target.value);
   }
 }

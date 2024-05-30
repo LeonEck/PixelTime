@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 export enum Mode {
@@ -83,7 +83,7 @@ export class SettingsService {
   mode: Mode = Mode.blackAndWhite;
   aspectRatio: AspectRatio = AspectRatio.sixteenByNine;
   duration = SettingsService.minutesToMilliseconds(Duration.twentyMinutes);
-  enableCSSTransition = false;
+  enableCSSTransition = signal(false);
   pixelDensity = PixelDensity.low;
   nextBlockToClear = new ReplaySubject<number>();
 

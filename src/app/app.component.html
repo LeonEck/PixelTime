@@ -1,4 +1,4 @@
-@if (!showBoard) {
+@if (!showBoard()) {
   <main class="container">
     <h1 class="center">PixelTime</h1>
     <div class="settings">
@@ -33,7 +33,7 @@
               @for (duration of durations; track duration) {
                 <option
                   [value]="duration"
-                  [selected]="duration === durationSelection"
+                  [selected]="duration === durationSelection()"
                 >
                   {{ duration }} Minutes
                 </option>
@@ -50,7 +50,7 @@
       <div
         class="arrow-down"
         (click)="toggleSettingsVisibility()"
-        [ngClass]="{ active: advancedSettingsVisible() }"
+        [class.active]="advancedSettingsVisible()"
       ></div>
       @if (advancedSettingsVisible()) {
         <form class="pure-form pure-form-stacked">
@@ -98,7 +98,7 @@
                 @for (aspectRatio of aspectRatios; track aspectRatio) {
                   <option
                     [value]="aspectRatio"
-                    [selected]="aspectRatio === aspectRatioSelection"
+                    [selected]="aspectRatio === aspectRatioSelection()"
                   >
                     {{ aspectRatio }}
                   </option>

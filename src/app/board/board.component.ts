@@ -3,13 +3,11 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
-  Input,
 } from '@angular/core';
 import { Mode, SettingsService } from '../settings.service';
 import { Block, BlockComponent } from '../block/block.component';
 
 interface Row {
-  id: number;
   blocks: Block[];
 }
 
@@ -44,14 +42,12 @@ export class BoardComponent {
       const blocksForRow = [];
       for (let j = 0; j < this.amountOfBlocksPerRow; j++) {
         const block = {
-          id: `${i}-${j}`,
           color: this.settingsService.getStartingColor(),
         };
         this.blocks.push(block);
         blocksForRow.push(block);
       }
       this.rows.push({
-        id: i,
         blocks: blocksForRow,
       });
     }

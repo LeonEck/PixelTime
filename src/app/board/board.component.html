@@ -1,6 +1,6 @@
-@for (row of rows; track row.id) {
+@for (row of rows; track $index) {
   <div class="row">
-    @for (block of row.blocks; track block.id) {
+    @for (block of row.blocks; track $index) {
       <app-block [color]="block.color"></app-block>
     }
   </div>
