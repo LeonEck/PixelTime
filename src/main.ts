@@ -1,12 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { NgZone, ɵNoopNgZone } from '@angular/core';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 
 bootstrapApplication(AppComponent, {
-  providers: [
-    {
-      provide: NgZone,
-      useClass: ɵNoopNgZone,
-    },
-  ],
+  providers: [provideExperimentalZonelessChangeDetection()],
 }).catch((err) => console.error(err));
