@@ -26,8 +26,8 @@
     "tslib": "2.6.3"
   },
   "devDependencies": {
-    "@angular/build": "18.0.3",
-    "@angular/cli": "18.0.3",
+    "@angular/build": "20.1.5",
+    "@angular/cli": "20.1.5",
     "angular-cli-ghpages": "2.0.0",
     "prettier": "3.3.1",
     "typescript": "5.4.5"
